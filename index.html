@@ -25,6 +25,10 @@
                 <input type="password" id="token" placeholder="Private Repository? Use access token">
                 <button type="submit">Fetch Files</button>
             </form>
+            <form id="upload-form" style="display: none;">
+                <input type="file" id="file-upload" accept=".txt,.md,.pdf,.zip" multiple required>
+                <button type="submit">Upload Files</button>
+            </form>
         </section>
         <section id="file-list-container" style="display: none;">
             <div id="file-list"></div>
