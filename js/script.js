@@ -1,3 +1,7 @@
+$(document).ready(function () {
+    alert("oi")
+});
+
 document.addEventListener("DOMContentLoaded", function () {
     const username = "";
     const repository = "";
@@ -51,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayFiles(files, username, repository, path, token) {
         fileList.innerHTML = ''; // Limpa a lista anterior
-        if (currentPath!== '') {
+        if (currentPath !== '') {
             const upLink = document.createElement('a');
             upLink.href = '#';
             upLink.innerHTML = '<i class="bi bi-arrow-return-left"></i>';
