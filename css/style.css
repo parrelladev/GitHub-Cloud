@@ -2,7 +2,7 @@
 body {
     margin: 0; /* Remover margens padrão do body */
     font-family: Arial, sans-serif; /* Fonte padrão */
-    background-color: #f4f4f4; /* Cor de fundo */
+    background-color: #010409; /* Cor de fundo */
 }
 
 /* Estilos para a barra de navegação */
@@ -10,7 +10,7 @@ nav {
     position: fixed; /* Fixar a barra de navegação na parte superior da janela */
     width: 100%; /* Largura total */
     top: 0; /* Alinhar no topo da janela */
-    background-color: #171515; /* Cor de fundo da navbar */
+    background-color: #0d1117; /* Cor de fundo da navbar */
     padding: 10px 0; /* Espaçamento interno */
     z-index: 1000; /* Garantir que a barra de navegação esteja acima de outros elementos */
 }
@@ -28,7 +28,7 @@ li {
 }
 
 a {
-    color: #fff; /* Cor do texto */
+    color: #e6edf3; /* Cor do texto */
     text-decoration: none; /* Remover sublinhado dos links */
     padding: 10px 20px; /* Espaçamento interno */
     border-radius: 4px; /* Bordas arredondadas */
@@ -36,13 +36,13 @@ a {
 }
 
 a:hover {
-    background-color: #2980b9; /* Cor de fundo ao passar o mouse */
+    background-color: #161b22; /* Cor de fundo ao passar o mouse */
 }
 
 /* Estilos para o conteúdo */
 .container {
     text-align: center;
-    background: #fff;
+    background: #161b22;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -53,6 +53,10 @@ a:hover {
 
 h1 {
     margin-bottom: 20px;
+}
+
+#logo {
+    max-width: 300px;
 }
 
 form {
@@ -70,7 +74,8 @@ input {
 
 button {
     padding: 10px 20px;
-    background-color: #3498db;
+    margin: 10px 10px 0px 0px;
+    background-color: #29903b;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -78,11 +83,11 @@ button {
 }
 
 button:hover {
-    background-color: #2980b9;
+    background-color: #238636;
 }
 
 button:focus {
-    outline: 3px solid #2980b9;
+    outline: 3px solid #238636;
 }
 
 #file-list {
@@ -94,14 +99,14 @@ button:focus {
     display: block;
     margin-bottom: 5px;
     padding: 5px;
-    background-color: #f0f0f0;
+    background-color: #0d1117;
     border-radius: 4px;
-    color: #333;
+    color: #e6edf3;
     text-decoration: none;
 }
 
 #file-list a:hover {
-    background-color: #e0e0e0;
+    background-color: #161b22;
 }
 
 #upload-form {
@@ -111,9 +116,6 @@ button:focus {
 #upload-form input[type="file"] {
     margin-bottom: 10px;
 }
-
-
-
 
 @media (max-width: 600px) {
     .container {
