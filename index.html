@@ -1,38 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub Cloud</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
-<body>
+<body class="dark-mode">
     <header>
         <nav>
             <ul>
                 <li><a href="#" id="home-link">Home</a></li>
-                <li><a href="#" id="recent-repos-link">Recent Repositories</a></li>
-                <li><a href="#" id="logout-link">Logout</a></li>
+                <li><span id="repo-info"></span><i class="bi bi-github" id="icone-github"></i></i></li>
+                <li><i class="bi bi-lamp-fill" id="icone-dark-mode"></i></li>
             </ul>
         </nav>
     </header>
     <main class="container">
         <img src="img/github-cloud_vectorized.png" alt="GitHub Cloud" id="logo"></img>
-        <section id="form-container">
-            <form id="repo-form">
-                <input type="text" id="username" placeholder="GitHub Username" required>
-                <input type="text" id="repository" placeholder="Repository Name" required>
-                <input type="password" id="token" placeholder="Private Repository? Use access token">
-                <button type="submit">Fetch Files</button>
-            </form>
-            <form id="upload-form" style="display: none;">
-                <input type="file" id="file-upload" accept=".txt,.md,.pdf,.zip" multiple required>
-                <button type="submit">Upload Files</button>
-            </form>            
-        </section>
         <section id="file-list-container" style="display: none;">
             <div id="file-list"></div>
         </section>
+        <button class="upload"><i class="bi bi-file-earmark-arrow-up"> Upload de arquivo</i></button>
     </main>
     <script src="js/script.js"></script>
 </body>

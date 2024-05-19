@@ -1,42 +1,42 @@
 /* Estilos para o body */
 body {
-    margin: 0; /* Remover margens padrão do body */
-    font-family: Arial, sans-serif; /* Fonte padrão */
-    background-color: #010409; /* Cor de fundo */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #010409;
 }
 
 /* Estilos para a barra de navegação */
 nav {
-    position: fixed; /* Fixar a barra de navegação na parte superior da janela */
-    width: 100%; /* Largura total */
-    top: 0; /* Alinhar no topo da janela */
-    background-color: #0d1117; /* Cor de fundo da navbar */
-    padding: 10px 0; /* Espaçamento interno */
-    z-index: 1000; /* Garantir que a barra de navegação esteja acima de outros elementos */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: #0d1117;
+    padding: 10px 0;
+    z-index: 1000;
 }
 
 ul {
-    list-style-type: none; /* Remover marcadores de lista */
+    list-style-type: none;
     margin: 0;
     padding: 0;
-    text-align: left; /* Alinhar os itens no centro */
+    text-align: left;
 }
 
 li {
-    display: inline; /* Exibir os itens na mesma linha */
-    margin-right: 0px; /* Espaçamento entre os itens */
+    display: inline;
+    margin-right: 0;
 }
 
-a {
-    color: #e6edf3; /* Cor do texto */
-    text-decoration: none; /* Remover sublinhado dos links */
-    padding: 10px 20px; /* Espaçamento interno */
-    border-radius: 4px; /* Bordas arredondadas */
-    transition: background-color 0.3s; /* Transição suave da cor de fundo */
+a, #repo-info {
+    color: #e6edf3;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
 a:hover {
-    background-color: #161b22; /* Cor de fundo ao passar o mouse */
+    background-color: #161b22;
 }
 
 /* Estilos para o conteúdo */
@@ -48,7 +48,7 @@ a:hover {
     border-radius: 8px;
     max-width: 500px;
     width: 90%;
-    margin: 70px auto; /* Define margens superior e inferior de 60px e margens automáticas nas laterais */
+    margin: 70px auto;
 }
 
 h1 {
@@ -72,41 +72,69 @@ input {
     box-sizing: border-box;
 }
 
-button {
+.upload {
+    font-size: unset;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
     padding: 10px 20px;
-    margin: 10px 10px 0px 0px;
-    background-color: #29903b;
+    background-color: #161b22;
     color: #fff;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 4px;
 }
 
-button:hover {
-    background-color: #238636;
+.upload:hover {
+    font-size: unset;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #161b22;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-button:focus {
-    outline: 3px solid #238636;
+#icone-github {
+    color: white;
+}
+
+i {
+    font-style: normal; /* Remove o estilo itálico */
 }
 
 #file-list {
-    margin-top: 20px;
-    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    overflow-y: auto;
+    scroll-behavior: auto;
+    transition: opacity 0.5s ease-out;
+}
+
+#file-list div {
+    width: 100px;
+    height: 100px;
+    background-color: gray;
 }
 
 #file-list a {
-    display: block;
-    margin-bottom: 5px;
-    padding: 5px;
     background-color: #0d1117;
     border-radius: 4px;
     color: #e6edf3;
+    margin: 1%;
     text-decoration: none;
 }
 
 #file-list a:hover {
     background-color: #161b22;
+}
+
+.transitioning {
+    opacity: 0.2;
 }
 
 #upload-form {
@@ -115,6 +143,70 @@ button:focus {
 
 #upload-form input[type="file"] {
     margin-bottom: 10px;
+}
+
+#icone-dark-mode {
+    color: white;
+    position: absolute;
+    right: 1%; /* ajuste conforme necessário */
+    top: 50%; /* alinha verticalmente ao centro */
+    transform: translateY(-50%); /* corrige a alinhamento vertical */
+}
+
+.light-mode {
+    background-color: #fff; /* Cor de fundo do site */
+    color: #333; /* Cor do texto */
+}
+
+.light-mode a {
+    color: #333; /* Cor dos links */
+}
+
+.light-mode a:hover {
+    color: #666; /* Cor dos links quando hover */
+}
+
+.light-mode .bi {
+    color: #333; /* Cor dos ícones */
+}
+
+.light-mode .bi:hover {
+    color: #666; /* Cor dos ícones quando hover */
+}
+
+.light-mode .container {
+    background-color: #f4f4f4;
+}
+
+.light-mode #file-list a {
+    background-color: #d7d7d7;
+    color: #333;
+}
+
+.light-mode #file-list a:hover {
+    background-color: #ececec;
+}
+
+.light-mode .upload {
+    background-color: #d7d7d7;
+    color: #333;
+}
+
+.light-mode .upload:hover {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.light-mode #logo {
+    content: url('../img/github-cloud_vectorized_dark.png'); /* Caminho da imagem para o modo claro */
+}
+
+.light-mode nav {
+    background-color: #333;
+}
+
+.light-mode #home-link{
+    color: white;
 }
 
 @media (max-width: 600px) {

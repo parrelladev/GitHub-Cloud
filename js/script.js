@@ -1,60 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const repoForm = document.getElementById('repo-form');
-    const uploadForm = document.getElementById('upload-form');
+    const username = "";
+    const repository = "";
+    const token = "";
+    const repoInfoElement = document.getElementById('repo-info');
+    repoInfoElement.textContent = `${username}/${repository}`;
     const fileListContainer = document.getElementById('file-list-container');
-    const formContainer = document.getElementById('form-container');
     const fileList = document.getElementById('file-list');
     const homeLink = document.getElementById('home-link');
-    const recentReposLink = document.getElementById('recent-repos-link');
-    const logoutLink = document.getElementById('logout-link');
     let currentPath = '';
 
-    repoForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const username = document.getElementById('username').value;
-        const repository = document.getElementById('repository').value;
-        const token = document.getElementById('token').value;
-
-        currentPath = '';
-        fetchFiles(username, repository, currentPath, token);
-        formContainer.style.display = 'none';
-        uploadForm.style.display = 'block';
-        fileListContainer.style.display = 'block';
-    });
-
-    uploadForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const username = document.getElementById('username').value;
-        const repository = document.getElementById('repository').value;
-        const token = document.getElementById('token').value;
-        const files = document.getElementById('file-upload').files;
-
-        uploadFiles(username, repository, currentPath, files, token);
-    });
+    fetchFiles(username, repository, currentPath, token);
+    fileListContainer.style.display = 'block';
 
     homeLink.addEventListener('click', function (event) {
         event.preventDefault();
         window.location.reload();
-    });    
-
-    recentReposLink.addEventListener('click', function (event) {
-        event.preventDefault();
-        // Lógica para mostrar repositórios recentes
     });
 
-    logoutLink.addEventListener('click', function (event) {
-        event.preventDefault();
-        // Lógica para fazer logout
+    // Adiciona evento de clique para alternar entre modo claro e escuro
+    const darkModeIcon = document.getElementById('icone-dark-mode');
+    darkModeIcon.addEventListener('click', function () {
+        document.body.classList.toggle('light-mode');
     });
 
     function fetchFiles(username, repository, path, token) {
         const apiUrl = `https://api.github.com/repos/${username}/${repository}/contents/${path}?ref=main`;
-
-        const headers = token ? {
+        const headers = {
             'Authorization': `token ${token}`
-        } : {};
+        };
 
         fetch(apiUrl, { headers })
             .then(response => {
@@ -77,12 +50,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function displayFiles(files, username, repository, path, token) {
-        fileList.innerHTML = '';
-    
-        if (currentPath !== '') {
+        fileList.innerHTML = ''; // Limpa a lista anterior
+        if (currentPath!== '') {
             const upLink = document.createElement('a');
             upLink.href = '#';
-            upLink.textContent = '🔙 Back';
+            upLink.innerHTML = '<i class="bi bi-arrow-return-left"></i>';
             upLink.addEventListener('click', function (event) {
                 event.preventDefault();
                 const pathParts = currentPath.split('/').filter(part => part.length > 0);
@@ -92,30 +64,179 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             fileList.appendChild(upLink);
         }
-    
+
+        const directories = [];
+        const filesList = [];
+
         files.forEach(file => {
-            const itemLink = document.createElement('a');
-            itemLink.href = '#';
-    
             if (file.type === 'dir') {
-                itemLink.textContent = `📂 ${file.name}`;
-                itemLink.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    currentPath = `${currentPath}${file.name}/`;
-                    fetchFiles(username, repository, currentPath, token);
+                directories.push({
+                    type: 'dir',
+                    name: file.name,
+                    icon: getIconForFileType('dir')
                 });
             } else {
-                itemLink.textContent = `📄 ${file.name}`;
-                itemLink.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    downloadFile(file.download_url, file.name);
+                filesList.push({
+                    type: 'file',
+                    name: file.name,
+                    extension: file.name.split('.').pop().toLowerCase(),
+                    icon: getIconForFileType(file.name.split('.').pop().toLowerCase()),
+                    download_url: file.download_url
                 });
             }
-    
-            fileList.appendChild(itemLink);
+        });
+
+        directories.forEach(dir => {
+            const dirItem = document.createElement('a');
+            dirItem.href = '#';
+            dirItem.innerHTML = `<span class="${dir.icon}"></span> ${dir.name}`;
+            dirItem.addEventListener('click', function (event) {
+                event.preventDefault();
+                currentPath = `${currentPath}${dir.name}/`;
+                fetchFiles(username, repository, currentPath, token);
+            });
+            fileList.appendChild(dirItem);
+        });
+
+        filesList.sort((a, b) => {
+            if (a.type === 'file' && b.type === 'dir') return -1;
+            if (a.type === 'dir' && b.type === 'file') return 1;
+            return a.name.localeCompare(b.name);
+        }).forEach(file => {
+            const fileItem = document.createElement('a');
+            fileItem.href = '#';
+            fileItem.innerHTML = `<span class="${file.icon}"></span> ${file.name}`;
+            fileItem.addEventListener('click', function (event) {
+                event.preventDefault();
+                downloadFile(file.download_url, file.name);
+            });
+            fileList.appendChild(fileItem);
         });
     }
-    
+
+    function getIconForFileType(fileType) {
+        switch (fileType) {
+            case 'dir':
+                return 'bi bi-folder-fill';
+            case 'txt':
+                return 'bi bi-file-earmark-text';
+            case 'pdf':
+                return 'bi bi-file-pdf-fill';
+            case 'png':
+            case 'jpg':
+            case 'jpeg':
+            case 'ico':
+                return 'bi bi-image';
+            case 'aac':
+                return 'bi bi-file-music-fill';
+            case 'ai':
+                return 'bi bi-file-ai-fill';
+            case 'bmp':
+                return 'bi bi-file-image-fill';
+            case 'cs':
+                return 'bi bi-file-code-fill';
+            case 'css':
+                return 'bi bi-file-code-fill';
+            case 'csv':
+                return 'bi bi-file-spreadsheet-fill';
+            case 'doc':
+            case 'docx':
+                return 'bi bi-file-word-fill';
+            case 'exe':
+                return 'bi bi-file-excel-fill';
+            case 'gif':
+                return 'bi bi-file-image-fill';
+            case 'heic':
+                return 'bi bi-file-image-fill';
+            case 'html':
+                return 'bi bi-file-code-fill';
+            case 'java':
+                return 'bi bi-file-code-fill';
+            case 'jpg':
+                return 'bi bi-file-image-fill';
+            case 'js':
+                return 'bi bi-file-code-fill';
+            case 'json':
+                return 'bi bi-file-code-fill';
+            case 'jsx':
+                return 'bi bi-file-code-fill';
+            case 'key':
+                return 'bi bi-file-locked-fill';
+            case 'm4p':
+                return 'bi bi-file-music-fill';
+            case 'md':
+            case 'mdx':
+                return 'bi bi-file-text-fill';
+            case 'mov':
+                return 'bi bi-file-play-fill';
+            case 'mp3':
+                return 'bi bi-file-music-fill';
+            case 'mp4':
+                return 'bi bi-file-play-fill';
+            case 'otf':
+                return 'bi bi-file-font-fill';
+            case 'php':
+                return 'bi bi-file-code-fill';
+            case 'png':
+                return 'bi bi-file-image-fill';
+            case 'ppt':
+            case 'pptx':
+                return 'bi bi-file-presentation-fill';
+            case 'psd':
+                return 'bi bi-file-photoshop-fill';
+            case 'py':
+                return 'bi bi-file-code-fill';
+            case 'raw':
+                return 'bi bi-file-earmark-arrow-down-fill';
+            case 'rb':
+                return 'bi bi-file-code-fill';
+            case 'sass':
+                return 'bi bi-file-code-fill';
+            case 'scss':
+                return 'bi bi-file-code-fill';
+            case 'sh':
+                return 'bi bi-file-code-fill';
+            case 'sql':
+                return 'bi bi-file-code-fill';
+            case 'svg':
+                return 'bi bi-file-image-fill';
+            case 'tiff':
+                return 'bi bi-file-image-fill';
+            case 'tsx':
+                return 'bi bi-file-code-fill';
+            case 'ttf':
+                return 'bi bi-file-font-fill';
+            case 'txt':
+                return 'bi bi-file-text-fill';
+            case 'wav':
+                return 'bi bi-file-music-fill';
+            case 'woff':
+                return 'bi bi-file-font-fill';
+            case 'xls':
+            case 'xlsx':
+                return 'bi bi-file-excel-fill';
+            case 'xml':
+                return 'bi bi-file-code-fill';
+            case 'yml':
+                return 'bi bi-file-code-fill';
+            case 'mov':
+            case 'mp4':
+            case 'wmv':
+            case 'avi':
+            case 'mkv':
+            case 'flv':
+            case 'webm':
+            case 'm4v':
+            case '3gp':
+            case 'mpg':
+            case 'mpeg':
+                return 'bi bi-film';
+            // Adicione outros tipos de arquivo conforme necessário
+            default:
+                return 'bi bi-file-earmark';
+        }
+    }
+
     function downloadFile(url, filename) {
         fetch(url)
             .then(response => response.blob())
@@ -129,49 +250,5 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.URL.revokeObjectURL(url);
             })
             .catch(error => console.error('Error downloading file:', error));
-    }
-    
-
-    function uploadFiles(username, repository, path, files, token) {
-        const apiUrl = `https://api.github.com/repos/${username}/${repository}/contents/${path}`;
-
-        const headers = {
-            'Authorization': `token ${token}`
-        };
-
-        Array.from(files).forEach(file => {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const content = event.target.result;
-                const formData = new FormData();
-                formData.append('content', content);
-                formData.append('message', `Upload ${file.name}`);
-                formData.append('branch', 'main');
-
-                fetch(apiUrl, {
-                    method: 'PUT',
-                    headers,
-                    body: JSON.stringify({
-                        message: `Upload ${file.name}`,
-                        content: btoa(content),
-                        branch: 'main'
-                    })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Upload successful:', data);
-                    fetchFiles(username, repository, currentPath, token);
-                })
-                .catch(error => {
-                    console.error('Error uploading file:', error);
-                });
-            };
-            reader.readAsText(file);
-        });
     }
 });
