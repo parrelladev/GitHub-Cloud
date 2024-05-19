@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayFiles(files, username, repository, path, token) {
         fileList.innerHTML = '';
-
+    
         if (currentPath !== '') {
             const upLink = document.createElement('a');
             upLink.href = '#';
@@ -92,26 +92,45 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             fileList.appendChild(upLink);
         }
-
+    
         files.forEach(file => {
             const itemLink = document.createElement('a');
             itemLink.href = '#';
-            itemLink.textContent = file.type === 'dir' ? `📂 ${file.name}` : `📄 ${file.name}`;
-
+    
             if (file.type === 'dir') {
+                itemLink.textContent = `📂 ${file.name}`;
                 itemLink.addEventListener('click', function (event) {
                     event.preventDefault();
                     currentPath = `${currentPath}${file.name}/`;
                     fetchFiles(username, repository, currentPath, token);
                 });
             } else {
-                itemLink.href = file.download_url;
-                itemLink.setAttribute('download', file.name);
+                itemLink.textContent = `📄 ${file.name}`;
+                itemLink.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    downloadFile(file.download_url, file.name);
+                });
             }
-
+    
             fileList.appendChild(itemLink);
         });
     }
+    
+    function downloadFile(url, filename) {
+        fetch(url)
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => console.error('Error downloading file:', error));
+    }
+    
 
     function uploadFiles(username, repository, path, files, token) {
         const apiUrl = `https://api.github.com/repos/${username}/${repository}/contents/${path}`;
