@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    alert("oi")
+    alert("olá")
 });
 
 document.addEventListener("DOMContentLoaded", function () {
