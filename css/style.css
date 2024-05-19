@@ -209,13 +209,17 @@ i {
     color: white;
 }
 
-@media (max-width: 600px) {
-    .container {
-        width: 100%;
-        padding: 10px;
-    }
+@media only screen and (max-width: 768px) {
 
-    input, button {
+    a, #repo-info {
+        padding: 8px 16px;
+    }
+    
+    .container {
+        margin: 60px auto;
+    }
+    
+    input {
         width: 100%;
         max-width: none;
     }

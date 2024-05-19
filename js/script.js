@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const username = "";
     const repository = "";
     const token = "";
+    const repoForm = document.getElementById('repo-form');
     const repoInfoElement = document.getElementById('repo-info');
     repoInfoElement.textContent = `${username}/${repository}`;
     const fileListContainer = document.getElementById('file-list-container');
@@ -9,12 +10,33 @@ document.addEventListener("DOMContentLoaded", function () {
     const homeLink = document.getElementById('home-link');
     let currentPath = '';
 
-    fetchFiles(username, repository, currentPath, token);
+    const userData = localStorage.getItem('userData')
+
+    // fetchFiles(username, repository, currentPath, token);
     fileListContainer.style.display = 'block';
 
     homeLink.addEventListener('click', function (event) {
         event.preventDefault();
         window.location.reload();
+    });
+
+    repoForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const repository = document.getElementById('repository').value;
+        const token = document.getElementById('token').value;
+        const userData = {
+            username: username,
+            repository: repository,
+            token: token
+        };
+
+        localStorage.setItem('userData', JSON.stringify(userData))
+
+        currentPath = '';
+        fetchFiles(userData.username, userData.repository, currentPath, userData.token);
+        fileListContainer.style.display = 'block';
     });
 
     // Adiciona evento de clique para alternar entre modo claro e escuro
@@ -25,9 +47,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function fetchFiles(username, repository, path, token) {
         const apiUrl = `https://api.github.com/repos/${username}/${repository}/contents/${path}?ref=main`;
-        const headers = {
-            'Authorization': `token ${token}`
-        };
+        let headers = {};
+
+        if (token !== null && token !== undefined && token !== '') {
+            headers = {
+                'Authorization': `token ${token}`
+            };
+        }
 
         fetch(apiUrl, { headers })
             .then(response => {
@@ -51,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayFiles(files, username, repository, path, token) {
         fileList.innerHTML = ''; // Limpa a lista anterior
-        if (currentPath!== '') {
+        if (currentPath !== '') {
             const upLink = document.createElement('a');
             upLink.href = '#';
             upLink.innerHTML = '<i class="bi bi-arrow-return-left"></i>';
@@ -116,6 +142,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getIconForFileType(fileType) {
         switch (fileType) {
+            case 'exe':
+                return 'bi bi-filetype-exe'
             case 'dir':
                 return 'bi bi-folder-fill';
             case 'txt':

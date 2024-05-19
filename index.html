@@ -26,6 +26,20 @@
         </section>
         <button class="upload"><i class="bi bi-file-earmark-arrow-up"> Upload de arquivo</i></button>
     </main>
+
+    <section id="form-container">
+        <form id="repo-form">
+            <input type="text" id="username" placeholder="GitHub Username" required>
+            <input type="text" id="repository" placeholder="Repository Name" required>
+            <input type="password" id="token" placeholder="Private Repository? Use access token">
+            <button type="submit">Fetch Files</button>
+        </form>
+        <form id="upload-form" style="display: none;">
+            <input type="file" id="file-upload" accept=".txt,.md,.pdf,.zip" multiple required>
+            <button type="submit">Upload Files</button>
+        </form>
+    </section>
+
     <script src="js/script.js"></script>
 </body>
 </html>
