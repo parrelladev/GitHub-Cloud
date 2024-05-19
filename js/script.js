@@ -156,39 +156,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
-// Função para salvar as informações de acesso do usuário em cookies
-function salvarInformacoesAcesso(username, token) {
-    // Define a data de expiração do cookie (por exemplo, 30 dias a partir de agora)
-    const dataExpiracao = new Date();
-    dataExpiracao.setDate(dataExpiracao.getDate() + 30);
-
-    // Formata as informações de acesso em uma string JSON
-    const informacoesAcesso = {
-        username: username,
-        token: token,
-        expiracao: dataExpiracao.toUTCString() // Converte a data de expiração para uma string UTC
-    };
-
-    // Codifica as informações de acesso em JSON e define como cookie
-    document.cookie = `informacoesAcesso=${JSON.stringify(informacoesAcesso)}; expires=${dataExpiracao.toUTCString()}; path=/`;
-}
-
-// Função para recuperar as informações de acesso do usuário dos cookies
-function obterInformacoesAcesso() {
-    // Obtém todos os cookies
-    const cookies = document.cookie.split(';');
-
-    // Procura pelo cookie que contém as informações de acesso
-    for (let cookie of cookies) {
-        const [nome, valor] = cookie.split('=');
-        if (nome.trim() === 'informacoesAcesso') {
-            // Decodifica as informações de acesso do JSON
-            const informacoesAcesso = JSON.parse(decodeURIComponent(valor));
-            return informacoesAcesso;
-        }
-    }
-
-    // Retorna null se as informações de acesso não forem encontradas nos cookies
-    return null;
-}
