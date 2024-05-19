@@ -7,16 +7,29 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#" id="home-link">Home</a></li>
+                <li><a href="#" id="recent-repos-link">Recent Repositories</a></li>
+                <li><a href="#" id="logout-link">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
         <h1>GitHub File Manager</h1>
-        <form id="repo-form">
-            <input type="text" id="username" placeholder="GitHub Username" required>
-            <input type="text" id="repository" placeholder="Repository Name" required>
-            <input type="text" id="branch" placeholder="Branch" value="main" required>
-            <button type="submit">Fetch Files</button>
-        </form>
-        <div id="file-list"></div>
-    </div>
+        <section id="form-container">
+            <form id="repo-form">
+                <input type="text" id="username" placeholder="GitHub Username" required>
+                <input type="text" id="repository" placeholder="Repository Name" required>
+                <input type="password" id="token" placeholder="Private Repository? Use access token">
+                <button type="submit">Fetch Files</button>
+            </form>
+        </section>
+        <section id="file-list-container" style="display: none;">
+            <div id="file-list"></div>
+        </section>
+    </main>
     <script src="js/script.js"></script>
 </body>
 </html>
