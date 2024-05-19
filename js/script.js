@@ -36,8 +36,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     homeLink.addEventListener('click', function (event) {
         event.preventDefault();
-        // Lógica para voltar à página inicial
-    });
+        window.location.reload();
+    });    
 
     recentReposLink.addEventListener('click', function (event) {
         event.preventDefault();
