@@ -175,3 +175,36 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+// Função para salvar os dados de acesso ao repositório em cookies e redirecionar para a página principal
+function saveRepoAccessAndRedirect(username, repository, token) {
+    document.cookie = `username=${encodeURIComponent(username)}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    document.cookie = `repository=${encodeURIComponent(repository)}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    document.cookie = `token=${encodeURIComponent(token)}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+
+    currentPath = '';
+    fetchFiles(username, repository, currentPath, token);
+    formContainer.style.display = 'none';
+    uploadForm.style.display = 'block';
+    fileListContainer.style.display = 'block';
+}
+
+// Carregar os dados de acesso ao repositório dos cookies ao carregar a página
+document.addEventListener('DOMContentLoaded', function () {
+    const { username, repository, token } = loadRepoAccessFromCookies();
+
+    if (username && repository && token) {
+        saveRepoAccessAndRedirect(username, repository, token);
+    }
+});
+
+// Adicionar um evento de envio ao formulário de acesso ao repositório para salvar os dados em cookies e redirecionar para a página principal
+repoForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const repository = document.getElementById('repository').value;
+    const token = document.getElementById('token').value;
+
+    saveRepoAccessAndRedirect(username, repository, token);
+});
