@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub File Manager</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub File Manager</h1>
+        <form id="repo-form">
+            <input type="text" id="username" placeholder="GitHub Username" required>
+            <input type="text" id="repository" placeholder="Repository Name" required>
+            <input type="text" id="branch" placeholder="Branch" value="main" required>
+            <button type="submit">Fetch Files</button>
+        </form>
+        <div id="file-list"></div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
