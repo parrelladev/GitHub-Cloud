@@ -31,10 +31,8 @@ $(document).ready(function () {
         };
 
         localStorage.setItem('userData', JSON.stringify(userData))
-
         fetchFiles(userData.username, userData.repository, userData.currentPath, userData.token);
         $('#file-list-container').css('display', 'block');
-        $('#repo-form').hide();
     });
 
     $('#switch').on('click', function (event) {
@@ -53,6 +51,9 @@ $(document).ready(function () {
     if (userData !== null && userData !== undefined) {
         fetchFiles(userData.username, userData.repository, userData.currentPath, userData.token);
         $repoInfoElement.html(`${userData.username}/${userData.repository}`);
+    }
+    else {
+        $('#repo-form').show();
     }
 });
 
@@ -125,7 +126,6 @@ function displayFiles(files, username, repository, path, token) {
             const pathParts = path.split('/').filter(part => part.length > 0);
             pathParts.pop();
 
-            localStorage.setItem()
             newPath = pathParts.join('/');
             fetchFiles(username, repository, newPath, token);
         });

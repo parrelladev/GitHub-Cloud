@@ -25,9 +25,9 @@
         <img src="img/github-cloud_vectorized.png" alt="GitHub Cloud" id="logo"></img>
 
         <div>
-            <form id="repo-form">
-                <input type="text" id="username" placeholder="GitHub Username">
-                <input type="text" id="repository" placeholder="Repository Name">
+            <form id="repo-form" style="display: none;">
+                <input type="text" id="username" placeholder="GitHub Username" required>
+                <input type="text" id="repository" placeholder="Repository Name" required>
                 <input type="password" id="token" placeholder="Private Repository? Use access token">
                 <button type="submit">Fetch Files</button>
             </form>
