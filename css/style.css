@@ -284,7 +284,7 @@ i {
 }
 
 .light-mode #icone-dark-mode {
-    color: #333;
+    color: white;
     position: absolute;
     right: 1%;
     top: 50%;
@@ -292,7 +292,7 @@ i {
 }
 
 .light-mode #icone-dark-mode:hover {
-    color: white;
+    color: #52a4ff;
     position: absolute;
     right: 1%;
     top: 50%;
