@@ -27,7 +27,8 @@ li {
     margin-right: 0;
 }
 
-a, #repo-info {
+a,
+#repo-info {
     color: #e6edf3;
     text-decoration: none;
     padding: 10px 20px;
@@ -85,20 +86,6 @@ input {
     cursor: pointer;
 }
 
-.switch {
-    font-size: unset;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    background-color: #161b22;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 200px ;
-}
-
 .upload:hover {
     font-size: unset;
     position: fixed;
@@ -112,12 +99,61 @@ input {
     cursor: pointer;
 }
 
+.switch {
+    font-size: unset;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #161b22;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 200px;
+}
+
+.switch:hover {
+    font-size: unset;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #161b22;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 200px;
+}
+
 #icone-github {
     color: white;
 }
 
 i {
-    font-style: normal; /* Remove o estilo itálico */
+    font-style: normal;
+    /* Remove o estilo itálico */
+}
+
+#submit {
+    margin-top: 5px;
+    padding: 10px 20px;
+    background-color: #238636;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submit:hover {
+    margin-top: 5px;
+    padding: 10px 20px;
+    background-color: #29903b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 #file-list {
@@ -162,30 +198,44 @@ i {
 #icone-dark-mode {
     color: white;
     position: absolute;
-    right: 1%; /* ajuste conforme necessário */
-    top: 50%; /* alinha verticalmente ao centro */
-    transform: translateY(-50%); /* corrige a alinhamento vertical */
+    right: 1%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#icone-dark-mode:hover {
+    color: #f1e05a;
+    position: absolute;
+    right: 1%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .light-mode {
-    background-color: #fff; /* Cor de fundo do site */
-    color: #333; /* Cor do texto */
+    background-color: #fff;
+    /* Cor de fundo do site */
+    color: #333;
+    /* Cor do texto */
 }
 
 .light-mode a {
-    color: #333; /* Cor dos links */
+    color: #333;
+    /* Cor dos links */
 }
 
 .light-mode a:hover {
-    color: #666; /* Cor dos links quando hover */
+    color: #666;
+    /* Cor dos links quando hover */
 }
 
 .light-mode .bi {
-    color: #333; /* Cor dos ícones */
+    color: #333;
+    /* Cor dos ícones */
 }
 
 .light-mode .bi:hover {
-    color: #666; /* Cor dos ícones quando hover */
+    color: #666;
+    /* Cor dos ícones quando hover */
 }
 
 .light-mode .container {
@@ -211,28 +261,55 @@ i {
     color: #333;
 }
 
+.light-mode .switch {
+    background-color: #d7d7d7;
+    color: #333;
+}
+
+.light-mode .switch:hover {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
 .light-mode #logo {
-    content: url('../img/github-cloud_vectorized_dark.png'); /* Caminho da imagem para o modo claro */
+    content: url('../img/github-cloud_vectorized_dark.png');
 }
 
 .light-mode nav {
     background-color: #333;
 }
 
-.light-mode #home-link{
+.light-mode #home-link {
     color: white;
+}
+
+.light-mode #icone-dark-mode {
+    color: #333;
+    position: absolute;
+    right: 1%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.light-mode #icone-dark-mode:hover {
+    color: white;
+    position: absolute;
+    right: 1%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 @media only screen and (max-width: 768px) {
 
-    a, #repo-info {
+    a,
+    #repo-info {
         padding: 8px 16px;
     }
-    
+
     .container {
         margin: 60px auto;
     }
-    
+
     input {
         width: 100%;
         max-width: none;
