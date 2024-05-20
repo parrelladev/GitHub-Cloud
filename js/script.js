@@ -93,7 +93,7 @@ function fetchFiles(username, repository, path, token) {
 
             if (!response.ok) {
                 $('#repo-form').show();
-                showError("Failed to fetch files: HTTP" + response.status);
+                showError("Failed to fetch files: HTTP " + response.status);
                 throw new Error('Network response was not ok');
             }
 
@@ -102,7 +102,7 @@ function fetchFiles(username, repository, path, token) {
         .then(data => {
             if (data.message === 'Not Found') {
                 $('#repo-form').show();
-                showError("Failed to fetch files: HTTP" + response.status);
+                showError("No files found");
                 return;
             }
 
@@ -185,7 +185,7 @@ function displayFiles(files, username, repository, path, token) {
 
 function showError(msg) {
     $('#errorLabel').html(msg)
-    // $('#errorLabel').toggle()
+    $('#errorLabel').show()
 }
 
 
