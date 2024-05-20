@@ -85,6 +85,20 @@ input {
     cursor: pointer;
 }
 
+.switch {
+    font-size: unset;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #161b22;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 200px ;
+}
+
 .upload:hover {
     font-size: unset;
     position: fixed;

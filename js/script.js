@@ -37,6 +37,17 @@ $(document).ready(function () {
         $('#repo-form').hide();
     });
 
+    $('#switch').on('click', function (event) {
+        $('#file-list').html(''); // Limpa lista de arquivos
+        $('#repo-form').show();
+
+        updateLocalStorage({
+            username: '', repository: '',
+            token: '',
+            currentPath: ''
+        })
+    });
+
     const userData = JSON.parse(localStorage.getItem("userData"));
 
     if (userData !== null && userData !== undefined) {
@@ -80,21 +91,25 @@ function fetchFiles(username, repository, path, token) {
     fetch(apiUrl, { headers })
         .then(response => {
             if (!response.ok) {
+                $('#repo-form').show();
                 throw new Error('Network response was not ok');
             }
             return response.json();
         })
         .then(data => {
             if (data.message === 'Not Found') {
-                // displayError('Repository Not Found or Not Available 😔<br><a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token" target="_blank">Create your access token</a>.');
+                console.error('Error:', error);
+                $('#repo-form').show();
                 return;
             }
+
             displayFiles(data, username, repository, path, token);
             updateLocalStorage({ currentPath: path })
+            $('#repo-form').hide();
         })
         .catch(error => {
-            // displayError('Repository Not Found or Not Available 😔<br><a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token" target="_blank">Create your access token</a>.');
             console.error('Error:', error);
+            $('#repo-form').show();
         });
 }
 
