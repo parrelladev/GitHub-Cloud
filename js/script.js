@@ -1,7 +1,8 @@
 // Evento de load
 $(document).ready(function () {
-    let currentPath = "";
+    showError("teste")
 
+    let currentPath = "";
     const $repoForm = $('#repo-form');
     const $repoInfoElement = $('#repo-info');
     const $fileListContainer = $('#file-list-container');
@@ -91,16 +92,19 @@ function fetchFiles(username, repository, path, token) {
 
     fetch(apiUrl, { headers })
         .then(response => {
+
             if (!response.ok) {
                 $('#repo-form').show();
+                showError("Failed to fetch files: HTTP" + response.status);
                 throw new Error('Network response was not ok');
             }
+
             return response.json();
         })
         .then(data => {
             if (data.message === 'Not Found') {
-                console.error('Error:', error);
                 $('#repo-form').show();
+                showError("Failed to fetch files: HTTP" + response.status);
                 return;
             }
 
@@ -180,6 +184,12 @@ function displayFiles(files, username, repository, path, token) {
         $('#file-list').append(fileItem);
     });
 }
+
+function showError(msg) {
+    $('#errorLabel').html(msg)
+    // $('#errorLabel').toggle()
+}
+
 
 function getIconForFileType(fileType) {
     switch (fileType) {
