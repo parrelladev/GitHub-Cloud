@@ -25,18 +25,19 @@
         <img src="img/github-cloud_vectorized.png" alt="GitHub Cloud" id="logo"></img>
 
         <div>
-            <form id="repo-form" style="display: none;">
-                <input type="text" id="username" placeholder="GitHub Username" required>
-                <input type="text" id="repository" placeholder="Repository Name" required>
+            <form id="repo-form">
+                <input type="text" id="username" placeholder="GitHub Username">
+                <input type="text" id="repository" placeholder="Repository Name">
                 <input type="password" id="token" placeholder="Private Repository? Use access token">
-                <button type="submit">Fetch Files</button>
+                <button type="submit" id="submit">Access Cloud</button>
+                <p id="errorLabel" style="color: red; display: none">Mensagem de erro</p>
             </form>
         </div>
 
         <section id="file-list-container" style="display: block;">
             <div id="file-list"></div>
         </section>
-        <button id="switch" class="switch"><i class="bi bi-arrow-left-right">Trocar Repositório</i></button>
+        <button id="switch" class="switch"><i class="bi bi-arrow-left-right"> Trocar Repositório</i></button>
         <button class="upload"><i class="bi bi-file-earmark-arrow-up"> Upload de arquivo</i></button>
     </main>
     <script src="js/script.js"></script>
