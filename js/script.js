@@ -1,7 +1,5 @@
 // Evento de load
 $(document).ready(function () {
-    showError("teste")
-
     let currentPath = "";
     const $repoForm = $('#repo-form');
     const $repoInfoElement = $('#repo-info');
